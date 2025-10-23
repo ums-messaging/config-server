@@ -20,8 +20,7 @@ pipeline {
                             if [ ! -d .git ]; then
                                 git init
                                 git remote add origin git@github.com:ums-messaging/config-server.git
-                                git config pull.rebase false
-                                git pull
+                                git pull --no-rebase origin main
                             else
                                 git fetch origin $GIT_BRANCH
                                 git checkout $GIT_BRANCH

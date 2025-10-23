@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8889
 spring:
   application:
     name: config-server
@@ -11,3 +11,4 @@ spring:
         awss3:
           region: ap-northeast-2
           bucket: ums-proj-bucket-01
+          prefix: ums-config-file/

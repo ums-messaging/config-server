@@ -55,8 +55,8 @@ pipeline {
             steps {
                 sh '''
                     docker pull ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}
-                    docker stop ${APP_NAME}
-                    docker rm ${APP_NAME}
+                    docker stop ${APP_NAME} || true
+                    docker rm ${APP_NAME} || true
                     docker run -d --name ${APP_NAME} -p 8888:8888 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG} -v /data/config-server/aws-keys:/aws-keys:ro
                 '''
             }

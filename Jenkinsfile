@@ -44,7 +44,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
-                    docker build -t ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}
+                    docker build -t ${REGISTRY}/${APP_NAME}:${IMAGE_TAG} .
                     docker login ${REGISTRY} --username jang314 --password jang314
                     docker push ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}
                 '''

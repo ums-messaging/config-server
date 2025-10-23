@@ -10,5 +10,5 @@ spring:
       server:
         awss3:
           region: ap-northeast-2
-          bucket: ums-proj-bucket-01
+          bucket: ums-config-file-bucket
           prefix: ums-config-file/

@@ -57,7 +57,7 @@ pipeline {
                     docker pull ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}
                     docker stop ${APP_NAME} || true
                     docker rm ${APP_NAME} || true
-                    docker run -d --name ${APP_NAME} -p 8888:8888 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG} -v /data/config-server/aws-keys:/aws-keys:ro
+                    docker run -d --name ${APP_NAME} -p 8888:8888 -e SPRING_PROFILES_ACTIVE=s3 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG} -v /data/config-server/aws-keys:/aws-keys:ro
                 '''
             }
         }

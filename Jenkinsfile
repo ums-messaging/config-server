@@ -17,8 +17,15 @@ pipeline {
                     def branch = env.BRANCH_NAME ?: 'main'
                     sshagent(['git']) {
                          sh """
-                            rm -rf *
-                            git clone -b $GIT_BRANCH git@github.com:ums-messaging/config-server.git .
+                            if [ ! -d .git ]; then
+                                git init
+                                git remote add origin git@github.com:ums-messaging/config-server.git
+                                git pull origin $GIT_BRANCH
+                            else
+                                git fetch origin $GIT_BRANCH
+                                git checkout $GIT_BRANCH
+                                git pull origin $GIT_BRANCH
+                            fi
                          """
                     }
                  }

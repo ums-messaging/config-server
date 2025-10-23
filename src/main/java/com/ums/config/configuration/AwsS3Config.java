@@ -1,6 +1,7 @@
 package com.ums.config.configuration;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.config.server.config.ConfigServerProperties;
 import org.springframework.cloud.config.server.environment.AwsS3EnvironmentRepository;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,6 @@ public class AwsS3Config {
 
     @Bean
     public AwsS3EnvironmentRepository awsS3EnvironmentRepository() {
-        return new AwsS3EnvironmentRepository(s3Client(), "ums-proj-bucket-01",serverProperties);
+        return new AwsS3EnvironmentRepository(s3Client(), "ums-config-file-bucket",serverProperties);
     }
 }

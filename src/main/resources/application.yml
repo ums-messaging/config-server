@@ -8,7 +8,6 @@ spring:
   cloud:
     config:
       server:
-        awss3:
-          region: ap-northeast-2
+        s3:
           bucket: ums-config-file-bucket
-          prefix: ums-config-file/
+          label: ums-config-file

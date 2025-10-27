@@ -6,10 +6,7 @@ import org.springframework.cloud.config.server.config.ConfigServerProperties;
 import org.springframework.cloud.config.server.environment.AwsS3EnvironmentRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
@@ -19,6 +16,13 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 public class AwsS3Config {
     private final ConfigServerProperties serverProperties;
+
+    @Value("${spring.cloud.config.server.s3.bucket}")
+    private String bucket;
+
+    @Value("${spring.cloud.config.server.s3.label}")
+    private String label;
+
 
     @Bean
     public S3Client s3Client() {
@@ -30,6 +34,8 @@ public class AwsS3Config {
 
     @Bean
     public AwsS3EnvironmentRepository awsS3EnvironmentRepository() {
-        return new AwsS3EnvironmentRepository(s3Client(), "ums-config-file-bucket",serverProperties);
+        serverProperties.setDefaultLabel(label);
+        return new AwsS3EnvironmentRepository(s3Client(), bucket, true, serverProperties);
     }
+
 }

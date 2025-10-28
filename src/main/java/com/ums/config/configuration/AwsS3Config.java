@@ -35,7 +35,7 @@ public class AwsS3Config {
     @Bean
     public AwsS3EnvironmentRepository awsS3EnvironmentRepository() {
         serverProperties.setDefaultLabel(label);
-        return new AwsS3EnvironmentRepository(s3Client(), bucket, true, serverProperties);
+        return new AwsS3EnvironmentRepository(s3Client(), bucket, false, serverProperties);
     }
 
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8889
 spring:
   application:
     name: config-server
@@ -11,3 +11,28 @@ spring:
         s3:
           bucket: ums-config-file-bucket
           label: ums-config-file
+    bus:
+      enabled: true
+    stream:
+      bindings:
+        springCloudBusOutput:
+          producer:
+            configuration:
+              value.serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+        springCloudBusInput:
+          consumer:
+            configuration:
+              value.deserializer: org.apache.kafka.common.serialization.ByteArraySerializer
+
+  kafka:
+    bootstrap-servers: localhost:9094
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,refresh,metrics,busrefresh
+  endpoint:
+    health:
+      show-details: always
+    env:
+      keys-to-sanitize: ""

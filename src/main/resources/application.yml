@@ -1,5 +1,5 @@
 server:
-  port: 8889
+  port: 8888
 spring:
   application:
     name: config-server
@@ -25,7 +25,7 @@ spring:
               value.deserializer: org.apache.kafka.common.serialization.ByteArraySerializer
 
   kafka:
-    bootstrap-servers: localhost:9094
+    bootstrap-servers: kafka:9092
 management:
   endpoints:
     web:

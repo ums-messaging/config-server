@@ -1,0 +1,24 @@
+server:
+  port: ${CONFIG_PORT:8888}
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: awss3
+  cloud:
+    config:
+      server:
+        s3:
+          bucket: ums-config-file-bucket
+          label: ums-config-file
+    bus:
+      enabled: true
+  kafka:
+    bootstrap-servers: kafka:${KAFKA_PORT:9094}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+    consumer:
+      group-id: test-group
+      key-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer

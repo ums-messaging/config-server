@@ -1,0 +1,11 @@
+server:
+  port: ${CONFIG_PORT:8888}
+spring:
+  profiles:
+    active: awss3
+  cloud:
+    config:
+      server:
+        s3:
+          bucket: ums-config-file-bucket
+          label: ums-config-file

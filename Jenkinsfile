@@ -68,7 +68,7 @@ pipeline {
                                "export IMAGE_TAG=${IMAGE_TAG}",
                                "docker stop ${APP_NAME} || true",
                                "docker rm ${APP_NAME} || true",
-                               "docker run -d --name ${APP_NAME} -p 8888:8888 -e SPRING_PROFILES_ACTIVE=dev -e CONFIG_PORT=8888 -v /home/.aws:/root/.aws:ro,Z --add-host=kafka:10.0.0.137 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}"
+                               "docker run -d --name ${APP_NAME} -p 8888:8888 -e SPRING_PROFILES_ACTIVE=dev -e CONFIG_PORT=8888 -v /home/ssm-user/.aws/root/.aws:ro,Z --add-host=kafka:10.0.0.137 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}"
                             ]}'
                     """
                  }

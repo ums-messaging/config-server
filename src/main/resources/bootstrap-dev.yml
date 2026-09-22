@@ -1,8 +1,6 @@
 server:
   port: ${CONFIG_PORT:8888}
 spring:
-  profiles:
-    active: awss3
   cloud:
     config:
       server:

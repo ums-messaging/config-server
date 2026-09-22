@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_REGION = 'ap-northeast-2'
-        TARGET_INSTANCE_ID = 'i-01865e024d7b04019'
+        TARGET_INSTANCE_ID = 'i-0e4be789103dd9f68'
         REGISTRY = "registry.ums.local:5000"
         APP_NAME = "config-server"
         IMAGE_TAG = "${env.BUILD_NUMBER}"
@@ -11,7 +11,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Gateway Server') {
+        stage('Checkout Config Server') {
             steps {
                  script {
                     def branch = env.BRANCH_NAME ?: 'main'

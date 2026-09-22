@@ -51,14 +51,28 @@ pipeline {
             }
         }
 
+
         stage('Deploy') {
             steps {
-                sh '''
-                    docker pull ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}
-                    docker stop ${APP_NAME} || true
-                    docker rm ${APP_NAME} || true
-                    docker run -d --name ${APP_NAME} -p 8888:8888 -e SPRING_PROFILES_ACTIVE=s3 -e CONFIG_PORT=8888 -v /home/.aws:/root/.aws:ro,Z --add-host=kafka:10.0.0.137 ${REGISTRY}/${APP_NAME}:${IMAGE_TAG}
-                '''
+                script {
+                    sh """
+                        aws ssm send-command \
+                            --instance-ids "${TARGET_INSTANCE_ID}" \
+                            --targets "Key=instanceIds,Values=${TARGET_INSTANCE_ID}" \
+                            --document-name "AWS-RunShellScript" \
+                            --region ${AWS_REGION} \
+                            --comment "Deploy ${APP_NAME}" \
+                            --parameters '{"commands" : [
+                               "docker login ${REGISTRY} --username jang314 --password jang314",
+                               "cd /data/schedule-service",
+                               "export HOST_IP=\$(hostname -i)",
+                               "export IMAGE_TAG=${IMAGE_TAG}",
+                               "docker stop ${APP_NAME} || true",
+                               "docker rm ${APP_NAME} || true",
+                               "docker-compose pull && docker-compose up -d"
+                            ]}'
+                    """
+                 }
             }
         }
     }
